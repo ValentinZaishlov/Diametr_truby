@@ -1,0 +1,32 @@
+import numpy as np
+from math import pi
+ds = np.linspace(40, 800, 101) * 1e-3  # внутренний диаметр труб
+vs = np.array([0.5, 1, 2, 3, 4])  # скорости среды в трубе, м/с
+Qs = np.zeros((len(ds), len(vs)))  # расходы (м3/ч) в трубе диаметром d и скорости среды v
+Qs = np.array([[ v * (pi * d * d / 4) * 3600 for v in vs ] for d in ds])
+ds *= 1e3  # переводим диаметры в мм
+legs = [str(v) + ' м/с' for v in vs]  # легенда графиков
+import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 16})
+fig, ax = plt.subplots(figsize = (10,5))
+plt.xlim (0,ds[-1]); plt.ylim(0., Qs[-1,-1])
+plt.xlabel('$d,\, мм$'); plt.ylabel('$Q,\, м3^/ч$');
+ax.plot(ds, Qs); ax.grid(); plt.legend(legs);
+import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 16})
+fig, ax = plt.subplots(figsize = (10,5))
+plt.xlim (ds[0],80); plt.ylim(0., 80)
+plt.xlabel('$d,\, мм$'); plt.ylabel('$Q,\, м3^/ч$');
+ax.plot(ds, Qs); ax.grid(); plt.legend(legs);
+fig, ax = plt.subplots(figsize = (10,5))
+plt.xlim (80,200); plt.ylim(0., 500)
+plt.xlabel('$d,\, мм$'); plt.ylabel('$Q,\, м3^/ч$');
+ax.plot(ds, Qs); ax.grid(); plt.legend(legs);
+fig, ax = plt.subplots(figsize = (10,5))
+plt.xlim (200, 400); plt.ylim(0., 2000)
+plt.xlabel('$d,\, мм$'); plt.ylabel('$Q,\, м3^/ч$');
+ax.plot(ds, Qs); ax.grid(); plt.legend(legs);
+fig, ax = plt.subplots(figsize = (10,5))
+plt.xlim (400, 800); plt.ylim(0., 7500)
+plt.xlabel('$d,\, мм$'); plt.ylabel('$Q,\, м3^/ч$');
+ax.plot(ds, Qs); ax.grid(); plt.legend(legs);
